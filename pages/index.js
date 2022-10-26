@@ -1,9 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Layout from '../components/Layout'
+import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container"
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <h1>My Next App Here - Hello World!</h1>
+    <Container>
+      <Layout><h1>My Next App Here - Hello World!</h1></Layout>
+      <Link href='/posts'><Button variant="primary">Posts</Button></Link>
+    </Container>
   )
 }
