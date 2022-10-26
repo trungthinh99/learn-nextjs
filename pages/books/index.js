@@ -1,32 +1,35 @@
 import Link from 'next/link';
 import { Button, Card } from 'react-bootstrap';
 import Layout from '../../components/Layout';
-import { getRandomJoke } from '../../lib/joke';
+import { getBooks } from '../../lib/book';
 
-const Random = ({ joke }) => {
+const Books = ({ books }) => {
   return (
     <Layout>
-      <Card className="my-3 shadow">
-        <Card.Body>
-          <Card.Title>Random Joke</Card.Title>
-          <Card.Text>{joke.value}</Card.Text>
-          <Link href="/">
-            <Button variant="dark">Back</Button>
-          </Link>
-        </Card.Body>
-      </Card>
+      {books.map(book => (
+        <Card className="my-3 shadow" key={book.bookName}>
+          <Card.Body>
+            <Card.Title>{book.bookName}</Card.Title>
+            <Card.Text>{book.bookContent}</Card.Text>
+            <Link href="/">
+              <Button variant="dark">Back</Button>
+            </Link>
+          </Card.Body>
+        </Card>
+      ))}
     </Layout>
   );
 };
 
 // Dữ liệu phụ thuộc vào mỗi request, nhưng mà vẫn tạo ra HTML tĩnh cho font-end, nên vẫn tốt cho SEO
-export const getServerSideProps = async () => {
-  const joke = await getRandomJoke();
+export const getStaticProps = async () => {
+  const books = await getBooks();
+  console.log(books);
   return {
     props: {
-      joke,
+      books,
     },
   };
 };
 
-export default Random;
+export default Books;
